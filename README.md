@@ -19,12 +19,23 @@ To run in detached mode:
 docker-compose up -d
 ```
 
-### Use Node.js container to build theme
+### Building and installing theme
 
+
+#### Node.js based themes
+If you are working on a Node.js based theme,
+you can use the spawned node container to compile and build your theme.
 ```
 docker-compose exec -u node node npm install
 docker-compose exec -u node node npm run build
 ```
+
+#### Standard themes
+The default set-up used a FortyTwo based theme and subtheme.
+These are included in the `theme-files` directory.
+The `deploy_theme.sh` script can be edited to copy your required files qnd enabling the theme after
+your drupal server has started.
+
 
 ### Use Composer to build and start your Drupal Site
 
@@ -34,6 +45,12 @@ docker-compose exec web ./vendor/bin/run drupal:site-install
 ```
 Your site will be available at:
  http://127.0.0.1:8080/<site-root>
+
+### Exporting and migrating data
+
+The default `composer.yml` and `runner.yml.dist` provide the `docker/default_content` module.
+This is a command line tool that can be used to export data from one Drupal instance to another.
+
 
 # Acknowledgements
 

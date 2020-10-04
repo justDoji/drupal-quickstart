@@ -1,0 +1,48 @@
+// DESKTOP
+$grid-columns: $default-grid-columns;
+$grid-column-width: $default-grid-column-width;
+$grid-gutter-width: $default-grid-gutter-width;
+
+// No need for a media query here,
+// this is always the base layout
+@for $grid-column from 1 through $grid-columns {
+  .#{'col-xl-' + $grid-column} {
+    @include span-columns($grid-column, false);
+  }
+
+  .#{'col-xl-' + $grid-column + '-gutter'} {
+    @include span-columns($grid-column, true);
+  }
+
+  .#{'col-xl-fluid-' + $grid-column} {
+    @include span-fluid-columns($grid-column, false);
+  }
+
+  .#{'col-xl-fluid-' + $grid-column + '-gutter'} {
+    @include span-fluid-columns($grid-column, true);
+  }
+
+  .#{'offset-xl-' + $grid-column} {
+    margin-left: calc-grid($grid-column) + $grid-gutter-width + px;
+  }
+}
+
+.offset-xl-0 {
+  margin-left: 0;
+}
+
+body {
+  &.show-grid {
+    @include visualize-grid;
+  }
+
+  &.show-responsive-identifier {
+    .responsive-identifier {
+      background: $xl-identifier-color;
+
+      &:after {
+        content: $xl-identifier-text;
+      }
+    }
+  }
+}

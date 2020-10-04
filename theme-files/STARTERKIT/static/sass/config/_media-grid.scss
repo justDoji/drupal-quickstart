@@ -1,0 +1,77 @@
+// Grid settings
+$default-grid-columns: 12;
+$default-grid-column-width: 80;
+$default-grid-gutter-width: 20;
+
+// LG grid
+$lg-grid-columns: 12;
+$lg-grid-column-width: 54;
+$lg-grid-gutter-width: 30;
+
+// MD grid
+$md-grid-columns: 12;
+$md-grid-column-width: 44;
+$md-grid-gutter-width: 20;
+
+// SM grid
+$sm-grid-columns: 8;
+$sm-grid-column-width: 47;
+$sm-grid-gutter-width: 12;
+
+// XS grid
+$xs-grid-columns: 8;
+$xs-grid-column-width: 27;
+$xs-grid-gutter-width: 12;
+
+$master-context-width: $default-grid-column-width * $default-grid-columns + $default-grid-gutter-width * ($default-grid-columns - 1);
+
+//  The canvas width with the settings above is 1218px,
+//  if you alter the values, make sure the canvas width
+//  always calculates below 1247px. Otherwise you have to
+//  change the media queries below.
+//
+//  For example the bootstrap grid system value:
+//  $grid-columns: 12
+//  $grid-column-width: 75
+//  $grid-gutter-width: 30
+//
+//  This will calculate in a canvas width of:
+//  (12 * (75 + 30)) - 30 = 1230px
+
+$breakpoint-mobile: 320px;
+$breakpoint-mobile-plus: 480px;
+$breakpoint-tablet-portrait: 768px;
+$breakpoint-tablet-landscape: 1024px;
+$breakpoint-laptop: 1240px;
+$breakpoint-desktop: $master-context-width;
+
+// media queries
+$xs: 'screen and (max-width: #{$breakpoint-mobile-plus - .5})';
+$sm: 'screen and (max-width: #{$breakpoint-tablet-portrait - .5})';
+$tablet: 'screen and (max-width: #{$breakpoint-tablet-landscape - .5})';
+$md: 'screen and (max-width: #{$breakpoint-tablet-landscape - .5})';
+$lg: 'screen and (max-width: #{($breakpoint-desktop - .5) + px})';
+$xl: 'screen and (min-width: #{$breakpoint-desktop + px})';
+
+$media-queries: (
+  'xl': $xl,
+  'lg': $lg,
+  'md': $md,
+  'sm': $sm,
+  'xs': $xs
+);
+
+// Media queries debug settings.
+$xs-identifier-color: $sunflower;
+$xs-identifier-text: 'XS';
+$sm-identifier-color: $nepgritis;
+$sm-identifier-text: 'SM';
+$md-identifier-color: $belizehole;
+$md-identifier-text: 'MD';
+$lg-identifier-color: $amethyst;
+$lg-identifier-text: 'LG';
+$xl-identifier-color: $pomegranate;
+$xl-identifier-text: 'XL - DESKTOP';
+
+// PAGE ELEMENTS SETTINGS
+$grid-transparency: 8;

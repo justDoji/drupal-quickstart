@@ -1,0 +1,81 @@
+drupal:
+  root: "web"
+  base_url: "http://web:8080/web"
+  database:
+    host: "mysql"
+    port: "3306"
+    name: "drupal"
+    user: "root"
+    password: ""
+  sparql:
+    host: "sparql"
+    port: "8890"
+  site:
+    profile: "minimal"
+    name: "Penguin Programming"
+  default_content_deploy_content_directory: "../content_export"
+  post_install:
+    - "./vendor/bin/drush en field_ui -y"
+    - "./vendor/bin/drush en better_normalizers -y"
+    - "./vendor/bin/drush en file_entity -y"
+    - "./vendor/bin/drush en default_content -y"
+    - "./vendor/bin/drush en default_content_deploy -y"
+    - "./vendor/bin/drush en toolbar -y"
+    - "./vendor/bin/drush en admin_toolbar -y"
+    - "./vendor/bin/drush en menu_ui -y"
+    - "./vendor/bin/drush en quickedit -y"
+    - "./vendor/bin/drush en editor -y"
+    - "./vendor/bin/drush en taxonomy -y"
+    - "./vendor/bin/drush en views_ui -y"
+    - "./vendor/bin/drush en views_ui -y"
+    - "./vendor/bin/drush en admin_toolbar_tools -y"
+    - "./vendor/bin/drush en link -y"
+    - "./vendor/bin/drush en image -y"
+    - "./vendor/bin/drush en block_content -y"
+    - "./vendor/bin/drush en ckeditor -y"
+    - "./vendor/bin/drush en content_moderation -y"
+    - "./vendor/bin/drush en comment -y"
+    - "./vendor/bin/drush en super_login -y"
+    - "./vendor/bin/drush en site_alert -y"
+    - "./vendor/bin/drush en editor_advanced_image -y"
+    - "./vendor/bin/drush en nice_login -y"
+    - "./vendor/bin/drush en modal_page -y"
+    - "./vendor/bin/drush en smart_date -y"
+    - "./vendor/bin/drush en easy_breadcrumb -y"
+    - "./vendor/bin/drush en view_mode_page -y"
+    - "./vendor/bin/drush en fontawesome -y"
+    - "./vendor/bin/drush en entity_block -y"
+    - "./vendor/bin/drush theme:enable gin -y"
+    - "./vendor/bin/drush config-set system.theme admin gin -y"
+  settings:
+    settings:
+      file_scan_ignore_directories:
+        - "node_modules"
+        - "bower_components"
+        - "vendor"
+        - "${drupal.root}"
+      file_private_path: 'sites/default/files/private'
+    databases:
+      sparql_default:
+        default:
+          prefix: ""
+          host: ${drupal.sparql.host}
+          port: ${drupal.sparql.port}
+          namespace: 'Drupal\Driver\Database\sparql'
+          driver: 'sparql'
+selenium:
+  host: "http://selenium"
+  port: "4444"
+  browser: "chrome"
+
+commands:
+  drupal:site-setup:
+    - { task: "symlink", from: "${drupal.root}/core/.stylelintrc.json", to: ".stylelintrc.json" }
+    - { task: "run", command: "drupal:drush-setup" }
+    - { task: "run", command: "drupal:settings-setup" }
+    - { task: "run", command: "setup:phpunit" }
+    - { task: "run", command: "setup:behat" }
+  setup:phpunit:
+    - { task: "process", source: "phpunit.xml.dist", destination: "phpunit.xml" }
+  setup:behat:
+    - { task: "process", source: "behat.yml.dist", destination: "behat.yml" }

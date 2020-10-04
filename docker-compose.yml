@@ -42,10 +42,3 @@ services:
     volumes:
       - ./theme-files:/home/node/app
     command: "sleep infinity"
-  sparql:
-    image: openeuropa/triple-store-dev:1.4.0
-    environment:
-      - SPARQL_UPDATE=true
-      - DBA_PASSWORD=dba
-    ports:
-      - "8890:8890"
